@@ -1,0 +1,15 @@
+STACK TECNOLOGICO DEL PROGETTO
+
+Angular Cli 17.3.0 -> versione 17 di Angular
+
+Daypilot lite angular 3.25.0 -> serve per il calendar dell'agenda. !OCCHIO! ho modificato la libreria aggiungendo 
+                                campi di interesse in più - non è la libreria originale
+
+angular2-smart-table 3.2.0 -> serve per tutte le table dell'applicativo
+
+bootstrap 5.3.3 -> per lo stile delle pagine
+
+crypto-js 4.2.0 -> per cryptare e decryptare le info nella sessionStorage e localStorage
+
+MomentJs 2.30.1 -> npm install moment --save -> Parse, validate, manipulate, e display dates e times in JavaScript
+

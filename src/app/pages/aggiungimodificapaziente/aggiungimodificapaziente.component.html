@@ -1,0 +1,206 @@
+<div class="container-fluid">
+    <div class="row px-3 py-1">
+        <div class="col-6">
+            <button type="button" class="btn btn-default" id="home" (click)="navigateToHome()">
+                <img class="img-circle" src="../../../assets/images/home_48x48.png" width="48" height="48" title="Home">
+            </button>
+            <button type="button" class="btn btn-default" id="indietro" (click)="navigateToBack()">
+                <img class="img-circle" src="../../../assets/images/freccia_sinistra_48x48.png" width="48" height="48" title="Indietro">
+            </button>
+        </div>
+    </div>
+    <div class="row px-3 py-1">
+        <div class="col-3">
+            <p class="h4"> Inserisci Paziente </p> 
+        </div>
+        <div class="col-3"></div>
+        <div class="col-3"></div>
+        <div class="col-3"></div>
+    </div>
+    <form class="row p-3" (ngSubmit)="pazForm.valid && salvaPaziente()" #pazForm="ngForm">
+        <!-- PRIMA RIGA -->
+        <p class="h6 mt-2 mb-3"> Dettagli </p>
+        <div class="col-3">
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="cognomeInput" name="cognomeInput" placeholder="1" [(ngModel)] = "patientNew.surname"
+                 required #cognome="ngModel">
+                <label class="form-label" for="cognomeInput">Cognome<span style="color: red;">*</span></label>
+                <span style="color: red;" *ngIf="cognome.invalid && (cognome.dirty || cognome.touched)">
+                    Compilare questo campo
+                </span>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="nomeInput" name="nomeInput" placeholder="2" [(ngModel)] = "patientNew.name"
+                required #nome="ngModel">
+                <label class="form-label" for="nomeInput">Nome<span style="color: red;">*</span></label>
+                <span style="color: red;" *ngIf="nome.invalid && (nome.dirty || nome.touched)">
+                    Compilare questo campo
+                </span>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="form-floating mb-3">
+                <select class="form-select" id="sessoInput" name="sessoInput" placeholder="3" [(ngModel)] = "patientNew.gender">
+                    <option value="M" selected>M</option>
+                    <option value="F">F</option>
+                </select>
+                <label class="form-label" for="sessoInput">Sesso<span style="color: red;">*</span></label>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="form-floating mb-3">
+                <input type="date" class="form-control pe-auto" id="dataNascitaInput" name="dataNascitaInput" placeholder="5" [(ngModel)] = "patientNew.birth_time"
+                required #dataNascita="ngModel">
+                <label class="form-label" for="dataNascitaInput">Data di nascita<span style="color: red;">*</span></label>
+                <span style="color: red;" *ngIf="dataNascita.invalid && (dataNascita.dirty || dataNascita.touched)">
+                    Compilare questo campo
+                </span>
+            </div>
+        </div>
+        <!-- SECONDA RIGA -->
+        <div class="col-3">
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="comuneNascitaInput" name="comuneNascitaInput" placeholder="2" [(ngModel)] = "patientNew.birth_place"
+                required #comNascita="ngModel">
+                <label class="form-label" for="comuneNascitaInput">Comune di  Nascita<span style="color: red;">*</span></label>
+                <span style="color: red;" *ngIf="comNascita.invalid && (comNascita.dirty || comNascita.touched)">
+                    Compilare questo campo
+                </span>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="cfInput" name="cfInput" placeholder="2" [(ngModel)] = "patientNew.fiscal_code"
+                required #cf="ngModel">
+                <label class="form-label" for="cfInput">Codice fiscale<span style="color: red;">*</span></label>
+                <span style="color: red;" *ngIf="cf.invalid && (cf.dirty || cf.touched)">
+                    Compilare questo campo
+                </span>
+            </div>
+        </div>
+        <div class="col-3 mt-2">
+            <button type="button" class="btn btn-primary" id="calcolaCF" name="calcolaCF" (click)="calcolaCf()"> Calcola Codice Fiscale</button>
+        </div>
+        <div class="col-3"></div>
+        <div class="col-12">
+            <hr> <!-- Linea che divide i filtri dai risultati-->
+        </div>
+        <!-- TERZA RIGA -->
+        <p class="h6 mt-2 mb-3"> Residenza </p>
+        <div class="col-3">
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="resAddressInput" name="resAddressInput" placeholder="2" [(ngModel)] = "patientNew.residence_address">
+                <label class="form-label" for="resAddressInput">Indirizzo</label>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="resCapInput" name="resCapInput" placeholder="2" [(ngModel)] = "patientNew.residence_postcode">
+                <label class="form-label" for="resCapInput">CAP</label>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="resMunInput" name="resMunInput" placeholder="2" [(ngModel)] = "patientNew.residence_municipality">
+                <label class="form-label" for="resMunInput">Comune</label>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="resDisInput" name="resDisInput" placeholder="2" [(ngModel)] = "patientNew.residence_district">
+                <label class="form-label" for="resDisInput">Provincia</label>
+            </div>
+        </div>
+        <!-- RIGA OPZIONALE PER CHECKBOX -->
+        <div class="col-3">
+            <input class="form-check-input mt-1 me-2" id="prova" type="checkbox" value="" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+            <label class="form-label" for="id">Domicilio diverso da residenza?</label>
+        </div>
+        <div class="col-9"></div>
+        <div class="row collapse" id="collapseExample">
+            <p class="h6 mt-3"> Domicilio </p>
+            <div class="col-3">
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="homeAddressInput" name="homeAddressInput" placeholder="2" [(ngModel)] = "patientNew.home_address">
+                    <label class="form-label" for="homeAddressInput">Indirizzo</label>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="homeCapInput" name="homeCapInput" placeholder="2" [(ngModel)] = "patientNew.home_postcode">
+                    <label class="form-label" for="homeCapInput">CAP</label>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="homeMunInput" name="homeMunInput" placeholder="2" [(ngModel)] = "patientNew.home_municipality">
+                    <label class="form-label" for="homeMunInput">Comune</label>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="homeDisInput" name="homeDisInput" placeholder="2" [(ngModel)] = "patientNew.home_district">
+                    <label class="form-label" for="homeDisInput">Provincia</label>
+                </div>
+            </div>
+        </div>
+        <div class="col-12">
+            <hr> <!-- Linea che divide i filtri dai risultati-->
+        </div>
+        <!-- QUARTA RIGA -->
+        <p class="h6 mt-2 mb-3">Contatti</p>
+        <div class="col-3">
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="homTelInput" name="homTelInput" placeholder="2" [(ngModel)] = "patientNew.home_phone">
+                <label class="form-label" for="homTelInput">Telefono</label>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="perTelInput" name="perTelInput" placeholder="2" [(ngModel)] = "patientNew.personal_phone"
+                required #pt="ngModel">
+                <label class="form-label" for="perTelInput">Cellulare<span style="color: red;">*</span></label>
+                <span style="color: red;" *ngIf="pt.invalid && (pt.dirty || pt.touched)">
+                    Compilare questo campo
+                </span>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="form-floating mb-3">
+                <input type="email" class="form-control" id="emailInput" name="emailInput" placeholder="2" [(ngModel)] = "patientNew.mail_address"
+                required #email="ngModel">
+                <label class="form-label" for="emailInput">Email<span style="color: red;">*</span></label>
+                <span style="color: red;" *ngIf="email.invalid && (email.dirty || email.touched)">
+                    Compilare questo campo
+                </span>
+            </div>
+        </div>
+        <div class="col-3"></div>
+        <!-- QUINTA RIGA -->
+        <div class="col-12 mt-3">
+            <button class="btn btn-primary" type="submit" [disabled]="pazForm.invalid">Salva</button>
+        </div>
+        
+    </form>
+</div>
+
+<!-- Questo è il modale che verrà aperto dopo l'operazione di salvataggio nuovo paziente o dopo la modifica di un paziente-->
+<div class="modal" id="modalPatient">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="d-grid gap-2">
+                    <h5>{{contentModalPatient}}</h5>
+                    @if (successOperation) {
+                        <button type="button" class="btn btn-success btn-lg" (click)="navigateToBack()">OK</button>
+                    }@else {
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="closeModal()">Close</button>
+                    }
+                <!-- -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

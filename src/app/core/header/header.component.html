@@ -1,0 +1,41 @@
+<header class="p-3 mb-3 border-bottom" style="background-color: aliceblue;">
+  <div class="container-fluid">
+    @if (BasicAuth.isLogged()) {
+      <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+        
+        <img src="../../../assets/images/Logo_small.png" width="40" height="32" class="rounded-circle">
+        
+        <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+          
+          <li><a class="nav-link px-2 link-secondary" [routerLink]="['/agendaamb']">Agenda</a></li>
+          
+          <li class="dropdown" style="cursor: pointer;">
+            <a class="nav-link px-2 link-body-emphasis dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">Personale</a>
+            <ul class="dropdown-menu text-small">
+              <li><a class="dropdown-item" href="#">Cambio ruolo</a></li>
+              <li><a class="dropdown-item" href="#">Cambio password</a></li>
+              <li><a class="dropdown-item" href="#">Gestione utenti</a></li>
+            </ul>
+          </li>
+          <li class="dropdown" style="cursor: pointer;">
+            <a class="nav-link px-2 link-body-emphasis dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">Paziente</a>
+            <ul class="dropdown-menu text-small">
+              <li><a class="dropdown-item" href="#">Cancellazione anagrafica</a></li>
+            </ul>
+          </li>
+        </ul>
+
+        <div class="dropdown text-end">
+          <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+            <img src="../../../assets/images/user.png" alt="mdo" width="32" height="32" class="rounded-circle">
+          </a>
+          <ul class="dropdown-menu text-small">
+            <li><a class="dropdown-item" href="#">Profilo</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#">Log out</a></li>
+          </ul>
+        </div>
+      </div>
+    }  
+  </div>
+</header>

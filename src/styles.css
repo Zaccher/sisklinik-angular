@@ -1,0 +1,37 @@
+/* Questo css Serve per le animazioni di entrata e uscita! */
+@keyframes entrance {
+    0% {
+      opacity: 0;
+      transform: translateX(-100px);
+    }
+  
+    100% {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  
+  @keyframes exit {
+    0% {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  
+    100% {
+      opacity: 0;
+      transform: translateX(100px);
+    }
+  }
+  
+  ::view-transition-old(root) {
+    animation: exit 1s ease 0s 1 normal forwards;
+  }
+  
+  ::view-transition-new(root) {
+    animation: entrance 1s ease 0s 1 normal forwards;
+  }
+
+  /* Questo serve per settare il colore delle righe selezionate nelle table del progetto */
+  angular2-smart-table table tr.selected {
+    background-color: lightblue !important;
+  }

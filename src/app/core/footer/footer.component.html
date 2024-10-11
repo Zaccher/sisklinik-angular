@@ -1,0 +1,10 @@
+<footer class="text-center bg-light fixed">
+    @if (BasicAuth.isLogged()) {
+        <!-- Copyright -->
+        <div class="text-center pt-3 pb-1" style="background-color: rgba(0, 0, 0, 0.05);">
+            <p>Copyrigth &#64; {{currentDate | date: 'y'}}. Tutti i diritti riservati</p>
+        </div>
+        <!-- Copyright -->
+    }
+</footer>
+<!-- Footer -->

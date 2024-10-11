@@ -1,0 +1,8 @@
+.container.body-content {
+    padding-bottom: 110px;
+    height: 1000px; /* Force height on body */
+}
+
+.footer p {
+    position: absolute;
+  }

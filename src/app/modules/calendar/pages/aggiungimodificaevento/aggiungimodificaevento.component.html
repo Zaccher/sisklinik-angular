@@ -1,0 +1,222 @@
+<!-- container ricerca paziente -->
+<div class="container-fluid">
+    <div class="row px-3 py-1">
+        <div class="col-6">
+            <button type="button" class="btn btn-default" id="home" (click)="navigateToHome()">
+                <img class="img-circle" src="../../../assets/images/home_48x48.png" width="48" height="48" title="Home">
+            </button>
+            <button type="button" class="btn btn-default" id="indietro" (click)="navigateToBack()">
+                <img class="img-circle" src="../../../assets/images/freccia_sinistra_48x48.png" width="48" height="48" title="Indietro">
+            </button>
+        </div>
+    </div>
+    
+    <div class="row px-3 py-1">
+        <div class="col-3">
+            @if(soloLettura) {
+                <p class="h4"> Dettaglio Evento </p>
+            }
+            @if(modifica) {
+                <p class="h4"> Modifica Evento </p>
+            }
+            @if(!soloLettura && !modifica) {
+                <p class="h4"> Inserisci Evento </p>
+            }
+        </div>
+        <div class="col-9"></div>
+    </div>
+    <form class="row p-3" (ngSubmit)="eventForm.valid && salvaEvent()" #eventForm="ngForm">
+        <div class="col-12">
+            @if (erroreControlloDate) {
+                <div class="alert alert-danger">
+                    {{erroreControlloDate}}
+                </div>
+            }
+        </div>
+        <div class="col-6">
+            @if(soloLettura || modifica) {
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="id" name="id" placeholder="1" [(ngModel)]="eventNew.id" disabled >
+                    <label class="form-label" for="id">Identificativo Evento</label>
+                    
+                </div>
+            }
+        </div>
+        <div class="col-6"></div>
+        <div class="col-6">
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="titolo" name="titolo" placeholder="1" [(ngModel)]="eventNew.text" 
+                required #titolo="ngModel" [disabled]="soloLettura">
+                <label class="form-label" for="titolo">Titolo evento<span style="color: red;">*</span></label>
+                <span style="color: red;" *ngIf="titolo.invalid && (titolo.dirty || titolo.touched)">
+                    Compilare questo campo
+                </span>
+            </div>
+        </div>
+        <div class="col-6">
+            <p class="h6"> Dati paziente associato all'appuntamento </p> 
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="surname" name="surname" placeholder="1" [(ngModel)]="patientSelected.surname" disabled>
+                <label class="form-label" for="surname">Cognome</label>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="form-floating mb-3">
+                <input type="date" class="form-control" id="dataInizio" name="dataInizio" placeholder="2" [(ngModel)]="dataInizioEvento"
+                required #dataInizio="ngModel" [disabled]="soloLettura">
+                <label class="form-label" for="dataInizio">Data Inizio Evento<span style="color: red;">*</span></label>
+                <span style="color: red;" *ngIf="dataInizio.invalid && (dataInizio.dirty || dataInizio.touched)">
+                    Compilare questo campo
+                </span>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="form-floating mb-3">
+                <select class="form-select" id="oraInizio" name="oraInizio" placeholder="3" [(ngModel)]="oraInizioEvento"
+                required #oraInizio="ngModel" [disabled]="soloLettura">
+                    <option value=""></option>
+                    <option value="07:00">07:00</option>
+                    <option value="07:30">07:30</option>
+                    <option value="08:00">08:00</option>
+                    <option value="08:30">08:30</option>
+                    <option value="09:00">09:00</option>
+                    <option value="09:30">09:30</option>
+                    <option value="10:00">10:00</option>
+                    <option value="10:30">10:30</option>
+                    <option value="11:00">11:00</option>
+                    <option value="11:30">11:30</option>
+                    <option value="12:00">12:00</option>
+                    <option value="12:30">12:30</option>
+                    <option value="13:00">13:00</option>
+                    <option value="13:30">13:30</option>
+                    <option value="14:00">14:00</option>
+                    <option value="14:30">14:30</option> 
+                    <option value="15:00">15:00</option>
+                    <option value="15:30">15:30</option>
+                    <option value="16:00">16:00</option>
+                    <option value="16:30">16:30</option>
+                    <option value="17:00">17:00</option>
+                    <option value="17:30">17:30</option>
+                    <option value="18:00">18:00</option>
+                    <option value="18:30">18:30</option>
+                    <option value="19:00">19:00</option>
+                </select>
+                <label class="form-label" for="oraInizio">Orario Inizio Evento<span style="color: red;">*</span></label>
+                <span style="color: red;" *ngIf="oraInizio.invalid && (oraInizio.dirty || oraInizio.touched)">
+                    Compilare questo campo
+                </span>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="name" name="name" placeholder="1" [(ngModel)]="patientSelected.name" disabled>
+                <label class="form-label" for="name">Nome</label>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="form-floating mb-3">
+                <input type="date" class="form-control" id="dataFine" name="dataFine" placeholder="2" [(ngModel)]="dataFineEvento"
+                required #dataFine="ngModel" [disabled]="soloLettura">
+                <label class="form-label" for="dataFine">Data Fine Evento<span style="color: red;">*</span></label>
+                <span style="color: red;" *ngIf="dataFine.invalid && (dataFine.dirty || dataFine.touched)">
+                    Compilare questo campo
+                </span>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="form-floating mb-3">
+                <select class="form-select" id="oraFine" name="oraFine" placeholder="3" [(ngModel)]="oraFineEvento"
+                required #oraFine="ngModel" [disabled]="soloLettura">
+                    <option value=""></option>
+                    <option value="07:00">07:00</option>
+                    <option value="07:30">07:30</option>
+                    <option value="08:00">08:00</option>
+                    <option value="08:30">08:30</option>
+                    <option value="09:00">09:00</option>
+                    <option value="09:30">09:30</option>
+                    <option value="10:00">10:00</option>
+                    <option value="10:30">10:30</option>
+                    <option value="11:00">11:00</option>
+                    <option value="11:30">11:30</option>
+                    <option value="12:00">12:00</option>
+                    <option value="12:30">12:30</option>
+                    <option value="13:00">13:00</option>
+                    <option value="13:30">13:30</option>
+                    <option value="14:00">14:00</option>
+                    <option value="14:30">14:30</option> 
+                    <option value="15:00">15:00</option>
+                    <option value="15:30">15:30</option>
+                    <option value="16:00">16:00</option>
+                    <option value="16:30">16:30</option>
+                    <option value="17:00">17:00</option>
+                    <option value="17:30">17:30</option>
+                    <option value="18:00">18:00</option>
+                    <option value="18:30">18:30</option>
+                    <option value="19:00">19:00</option>
+                </select>
+                <label class="form-label" for="oraFine">Orario Fine Evento<span style="color: red;">*</span></label>
+                <span style="color: red;" *ngIf="oraFine.invalid && (oraFine.dirty || oraFine.touched)">
+                    Compilare questo campo
+                </span>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="form-floating mb-3">
+                <input type="date" class="form-control" id="dataNascita" name="dataNascita" placeholder="1" [(ngModel)]="patientSelected.birth_time" disabled>
+                <label class="form-label" for="dataNascita">Data di nascita</label>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="form-floating mb-3">
+                <select class="form-select" id="colore" name="colore" placeholder="3" [(ngModel)]="eventNew.barColor"
+                required #color="ngModel" [disabled]="soloLettura">
+                    <option value="#6aa84f" style="color: #6aa84f; font-weight: bold">Verde</option>
+                    <option value="#f1c232" style="color: #f1c232; font-weight: bold">Giallo</option>
+                    <option value="#cc0000" style="color: #cc0000; font-weight: bold">Rosso</option>
+                </select>
+                <label class="form-label" for="colore">Colore evento<span style="color: red;">*</span></label>
+                <span style="color: red;" *ngIf="color.invalid && (color.dirty || color.touched)">
+                    Compilare questo campo
+                </span>
+            </div>
+        </div>
+        <div class="col-3"></div>
+        <div class="col-6">
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="fiscalCode" name="fiscalCode" placeholder="1" [(ngModel)]="patientSelected.fiscal_code" disabled>
+                <label class="form-label" for="fiscalCode">Codice Fiscale</label>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="form-floating mb-3">
+                <textarea class="form-control" placeholder="Leave a comment here" id="note" name="note"
+                style="height: 100px;" [(ngModel)]="eventNew.note" [disabled]="soloLettura"></textarea>
+                <label class="form-label" for="note">Note evento</label>
+            </div>
+        </div>
+        <div class="col-6"></div>
+        <div class="col-3 mt-3">
+            <button class="btn btn-primary" type="submit" [disabled]="eventForm.invalid" [hidden]="soloLettura">Salva</button>
+        </div>
+        <div class="col-9"></div>
+    </form>
+</div>
+
+<!-- Questo è il modale che verrà aperto dopo l'operazione di salvataggio nuovo evento o dopo la modifica di un evento -->
+<div class="modal" id="modalEvent">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="d-grid gap-2">
+                    <h5>{{contentModalEvent}}</h5>
+                    @if (successOperation) {
+                        <button type="button" class="btn btn-success btn-lg" (click)="navigateToHome()">OK</button>
+                    }@else {
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="closeModal()">Close</button>
+                    }
+                <!-- -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,112 @@
+
+<!-- container ricerca paziente -->
+<div class="container-fluid">
+    <div class="row px-3 py-1">
+        <div class="col-6">
+            <button type="button" class="btn btn-default" id="home" (click)="navigateToHome()">
+                <img class="img-circle" src="../../../assets/images/home_48x48.png" width="48" height="48" title="Home">
+            </button>
+            <button type="button" class="btn btn-default" id="indietro" (click)="navigateToBack()">
+                <img class="img-circle" src="../../../assets/images/freccia_sinistra_48x48.png" width="48" height="48" title="Indietro">
+            </button>
+        </div>
+    </div>
+    <div class="row px-3 py-1">
+        <div class="col-3">
+            <p class="h4"> Ricerca paziente </p> 
+        </div>
+        <div class="col-3"></div>
+        <div class="col-3"></div>
+        <div class="col-3"></div>
+    </div>
+    <div class="row p-3">
+        <div class="col-3">
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="cognomeInput" placeholder="1" [(ngModel)] = "patientSearch.surname" >
+                <label class="form-label" for="cognomeInput">Cognome</label>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="nomeInput" placeholder="2" [(ngModel)] = "patientSearch.name">
+                <label class="form-label" for="nomeInput">Nome</label>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="form-floating mb-3">
+                <select class="form-select" id="sessoInput" placeholder="3" [(ngModel)] = "patientSearch.gender">
+                    <option value="" selected></option>
+                    <option value="M">M</option>
+                    <option value="F">F</option>
+                </select>
+                <label class="form-label" for="sessoInput">Sesso</label>
+            </div>
+        </div>
+        <div class="col-3"></div>
+    </div>
+    <div class="row p-3">
+        <div class="col-2">
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="cfInput" placeholder="4" [(ngModel)] = "patientSearch.fiscal_code">
+                <label class="form-label" for="cfInput">Codice Fiscale</label>
+            </div>
+        </div>
+        <div class="col-2">
+            <div class="form-floating mb-3">
+                <input type="date" class="form-control" id="dataNascitaInput" placeholder="5" [(ngModel)] = "patientSearch.birth_time">
+                <label class="form-label" for="dataNascitaInput">Data di nascita</label>
+            </div>
+        </div>
+        <div class="col-2">
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="idInput" placeholder="6" [(ngModel)] = "patientSearch.id">
+                <label class="form-label" for="idInput">Id</label>
+            </div>
+        </div>
+        <div class="col-2">
+            <button type="button" class="btn btn-default" id="lenteRicerca" (click)="cercaPazienti()">
+                <img class="img-circle" src="../../../assets/images/lente_48x48.png" width="48" height="48" title="Cerca Paziente">
+            </button>
+            <button type="button" class="btn btn-default" id="cleanFilter" (click)="pulisciFiltri()">
+                <img class="img-circle" src="../../../assets/images/Pulizia_filtri_48x48.png" width="48" height="48" title="Pulisci filtri">
+            </button>
+        </div>
+        <div class="col-4">
+            <button hidden></button>
+        </div>
+    </div>
+    <div class="row ps-3 pe-3">
+        <div class="col-12">
+            <hr> <!-- Linea che divide i filtri dai risultati-->
+        </div>
+    </div>
+    <div class="row pt-3 ps-3 pb-1">
+        <div class="col-1">
+            <div class="form-floating">
+                <input type="number" class="form-control" id="numberRow" placeholder="0" value = {{countRow}} readonly>
+                <label class="form-label" for="numberRow">N° righe</label>
+            </div>
+        </div>
+        <div class="col-10">
+            <button type="button" class="btn btn-default" id="addPaziente" (click)="navigateToInserisciPaziente()">
+                <img class="img-circle" src="../../../assets/images/add_utente_48x48.png" width="48" height="48" title="Crea Nuovo Paziente">
+            </button>
+        </div>
+        <div class="col-1">
+            @if (selectedRow) {
+                <button type="button" class="btn btn-default" id="frecciaDestra" (click)="navigateToInserisciEvento()">
+                    <img class="img-circle" src="../../../assets/images/freccia_destra_48x48.png" width="48" height="48" title="Avanti">
+                </button>
+            }
+        </div>
+    </div>
+    <div class="row p-3">
+        <div class="col-12">
+            <div class="card">
+                <angular2-smart-table [settings]="settings" [source]="source" (userRowSelect)="userSelectedRow($event)"></angular2-smart-table>
+            </div>
+        </div>
+    </div>
+</div>
+
+

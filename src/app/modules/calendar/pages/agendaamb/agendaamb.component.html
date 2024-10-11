@@ -1,0 +1,67 @@
+<div class="wrap">
+    <!--<div class="left">
+        <daypilot-navigator [config]="navigatorConfig" [(date)]="date" #navigator></daypilot-navigator>
+    </div>-->
+    <div class="content">
+        <table class="mx-auto">
+            <tr>
+                <td style="padding-right: 5px; padding-bottom: 5px;"><button type="button" class="btn btn-primary" (click)="navigatePrevious($event)">Precedente</button></td>
+                <td style="padding-right: 5px; padding-bottom: 5px;">
+                    <div class="form-floating mb-3">
+                        <input type="date" class="form-control" id="dateAegnda" name="dateAegnda" [(ngModel)] = "startDate" (change)="changeValueDatepicker()">
+                        <label class="form-label" for="dateAegnda">Data Agenda</label>
+                        
+                    </div>
+                </td>
+                <td style="padding-right: 5px; padding-bottom: 5px;"><button type="button" class="btn btn-primary" (click)="navigateNext($event)">Successivo</button></td>
+                <td>
+                    <button type="button" class="btn btn-default" id="refresh" (click)="viewChange()">
+                        <img src="../../../../../assets/images/refresh-48x48.png" width="38" height="38" title="Refresh Agenda">
+                    </button>
+                </td>
+                
+            </tr>
+        </table>
+        <daypilot-calendar #calendar [events]="events$" [config]="calendarConfig" (viewChange)="viewChange()"></daypilot-calendar>
+    </div>
+</div>
+
+<!-- Questo è il modale che verrà aperto se si clicca su un qualsiasi range temporale dell'agenda in INSERIMENTO EVENTO-->
+<div class="modal" id="modalEvent">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">Cosa vuoi fare ?</h5>
+            <button type="button" class="btn-close" (click)="closeModal()" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="d-grid gap-2">
+                <button type="button" class="btn btn-primary" (click)="navigateToRicercaPaziente()" data-bs-dismiss="modal" [disabled]="idEventSelected">Inserisci Evento</button>
+                <button type="button" class="btn btn-primary" (click)="navigateToDettaglioEvento()" data-bs-dismiss="modal" [disabled]="!idEventSelected">Dettaglio Evento</button>
+                <button type="button" class="btn btn-primary" (click)="navigateToModificaEvento()" data-bs-dismiss="modal" [disabled]="!idEventSelected">Modifica Evento</button>
+                <button type="button" class="btn btn-primary" (click)="navigateToEliminaEvento()" data-bs-dismiss="modal" [disabled]="!idEventSelected">Elimina Evento</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="closeModal()">Close</button>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+
+<!-- Questo è il modale che verrà aperto se si clicca su Elimina Evento-->
+<div class="modal" id="modalDeleteEvent">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">Eliminazione Evento</h5>
+            <button type="button" class="btn-close" (click)="closeModal()" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="d-grid gap-2">
+                <h6>Se sicuro di voler eliminare questo evento ?</h6>
+                <button type="button" class="btn btn-primary" (click)="eliminaEvento()" data-bs-dismiss="modal">SI</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="closeModal()">NO</button>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
