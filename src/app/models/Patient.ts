@@ -17,7 +17,4 @@ export interface IPatient {
     home_phone: string
     personal_phone: string
     mail_address : string
-
-    //serve per il tracciamento dell'operazione
-    username : string
 }

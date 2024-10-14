@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { RicercapazienteComponent } from './pages/ricercapaziente/ricercapaziente.component';
 import { AggiungimodificapazienteComponent } from './pages/aggiungimodificapaziente/aggiungimodificapaziente.component';
 import { AggiungimodificaeventoComponent } from './modules/calendar/pages/aggiungimodificaevento/aggiungimodificaevento.component';
+import { AggiungimodificautenteComponent } from './pages/aggiugnimodificautente/aggiungimodificautente.component';
 
 export const routes: Routes = [
     {
@@ -30,5 +31,9 @@ export const routes: Routes = [
       {
         path:'aggiungimodificaevento',
         component: AggiungimodificaeventoComponent
-      } 
+      },
+      {
+        path:'aggiungimodificautente',
+        component: AggiungimodificautenteComponent
+      }
 ];

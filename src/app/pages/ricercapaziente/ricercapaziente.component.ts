@@ -106,8 +106,7 @@ export class RicercapazienteComponent implements OnInit, AfterViewInit {
       home_district: "",
       home_phone: "",
       personal_phone: "",
-      mail_address : "",
-      username : ""
+      mail_address : ""
     }
 
     this.source = new LocalDataSource();
@@ -160,8 +159,7 @@ export class RicercapazienteComponent implements OnInit, AfterViewInit {
       home_district: "",
       home_phone: "",
       personal_phone: "",
-      mail_address : "",
-      username : ""
+      mail_address : ""
     }
   }
 

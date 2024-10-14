@@ -1,0 +1,207 @@
+<div class="container-fluid">
+    <div class="row px-3 py-1">
+        <div class="col-6">
+            <button type="button" class="btn btn-default" id="home" (click)="navigateToHome()">
+                <img class="img-circle" src="../../../assets/images/home_48x48.png" width="48" height="48" title="Home">
+            </button>
+            <button type="button" class="btn btn-default" id="indietro" (click)="navigateToBack()">
+                <img class="img-circle" src="../../../assets/images/freccia_sinistra_48x48.png" width="48" height="48" title="Indietro">
+            </button>
+        </div>
+    </div>
+    <div class="row px-3 py-1">
+        <div class="col-3">
+            <p class="h4"> Inserisci Utente </p> 
+        </div>
+        <div class="col-3"></div>
+        <div class="col-3"></div>
+        <div class="col-3"></div>
+    </div>
+    <form class="row p-3" (ngSubmit)="uteForm.valid && salvaUtente()" #uteForm="ngForm">
+        <!-- PRIMA RIGA -->
+        <p class="h6 mt-2 mb-3"> Dettagli Utenza </p>
+        <div class="col-3">
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="username" name="username" placeholder="1" [(ngModel)] = "userappNew.username"
+                 required #username="ngModel">
+                <label class="form-label" for="username">Username<span style="color: red;">*</span></label>
+                <span style="color: red;" *ngIf="username.invalid && (username.dirty || username.touched)">
+                    Compilare questo campo
+                </span>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="form-floating mb-3">
+                <input type="password" class="form-control" id="password" name="password" placeholder="2" [(ngModel)] = "userappNew.password"
+                required #password="ngModel">
+                <label class="form-label" for="password">Password<span style="color: red;">*</span></label>
+                <span style="color: red;" *ngIf="password.invalid && (password.dirty || password.touched)">
+                    Compilare questo campo
+                </span>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="name" name="name" placeholder="2" [(ngModel)] = "userappNew.name"
+                required #name="ngModel">
+                <label class="form-label" for="name">Nome<span style="color: red;">*</span></label>
+                <span style="color: red;" *ngIf="name.invalid && (name.dirty || name.touched)">
+                    Compilare questo campo
+                </span>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="surname" name="surname" placeholder="2" [(ngModel)] = "userappNew.surname"
+                required #surname="ngModel">
+                <label class="form-label" for="surname">Cognome<span style="color: red;">*</span></label>
+                <span style="color: red;" *ngIf="surname.invalid && (surname.dirty || surname.touched)">
+                    Compilare questo campo
+                </span>
+            </div>
+        </div>
+        <!-- SECONDA RIGA -->
+        <div class="col-3">
+            <div class="form-floating mb-3">
+                <input type="date" class="form-control pe-auto" id="birthDate" name="birthDate" placeholder="5" [(ngModel)] = "userappNew.birthDate">
+                <label class="form-label" for="birthDate">Data di nascita</label>
+            </div>
+        </div>
+        
+        <div class="col-3">
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="birthPlace" name="birthPlace" placeholder="2" [(ngModel)] = "userappNew.birthPlace">
+                <label class="form-label" for="birthPlace">Comune di  Nascita</label>
+            </div>
+        </div>
+
+        <div class="col-3">
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="fiscalCode" name="fiscalCode" placeholder="2" [(ngModel)] = "userappNew.fiscalCode"
+                required #fiscalCode="ngModel">
+                <label class="form-label" for="fiscalCode">Codice fiscale<span style="color: red;">*</span></label>
+                <span style="color: red;" *ngIf="fiscalCode.invalid && (fiscalCode.dirty || fiscalCode.touched)">
+                    Compilare questo campo
+                </span>
+            </div>
+        </div>
+
+        <div class="col-3"></div>
+        
+        <div class="col-12">
+            <hr> <!-- Linea divisoria -->
+        </div>
+        <!-- TERZA RIGA -->
+        <p class="h6 mt-2 mb-3"> Contatti </p>
+        <div class="col-3">
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="address" name="address" placeholder="2" [(ngModel)] = "userappNew.address">
+                <label class="form-label" for="address">Indirizzo</label>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="postcode" name="postcode" placeholder="2" [(ngModel)] = "userappNew.postcode">
+                <label class="form-label" for="postcode">CAP</label>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="municipality" name="municipality" placeholder="2" [(ngModel)] = "userappNew.municipality">
+                <label class="form-label" for="municipality">Comune</label>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="district" name="district" placeholder="2" [(ngModel)] = "userappNew.district">
+                <label class="form-label" for="district">Provincia</label>
+            </div>
+        </div>
+        <!-- QUARTA RIGA -->
+        <div class="col-3">
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="personalPhone" name="personalPhone" placeholder="2" [(ngModel)] = "userappNew.personalPhone">
+                <label class="form-label" for="personalPhone">Cellulare</label>
+                
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="homePhone" name="homePhone" placeholder="2" [(ngModel)] = "userappNew.homePhone">
+                <label class="form-label" for="homePhone">Telefono</label>
+            </div>
+        </div>
+        
+        <div class="col-3">
+            <div class="form-floating mb-3">
+                <input type="email" class="form-control" id="mailAddress" name="mailAddress" placeholder="2" [(ngModel)] = "userappNew.mailAddress"
+                required #mailAddress="ngModel">
+                <label class="form-label" for="mailAddress">Email<span style="color: red;">*</span></label>
+                <span style="color: red;" *ngIf="mailAddress.invalid && (mailAddress.dirty || mailAddress.touched)">
+                    Compilare questo campo
+                </span>
+            </div>
+        </div>
+
+        <div class="col-3"></div>
+
+        <div class="col-12">
+            <hr> <!-- Linea divisoria -->
+        </div>
+
+        <!-- QUINTA RIGA OPZIONALE PER CHECKBOX -->
+        <div class="col-3">
+            <input class="form-check-input mt-1 me-2" id="prova" type="checkbox" value="" name="checkResource" 
+                   data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" 
+                   aria-controls="collapseExample" 
+                   (change)="checkboxClicked()">
+            <label class="form-label" for="id">La nuova utenza, è anche una risorsa ?</label>
+        </div>
+        <div class="col-9"></div>
+        <div class="row collapse" id="collapseExample">
+            <p class="h6 mt-3"> Dati Risorsa </p>
+            <div class="col-3">
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="alias" name="alias" placeholder="2" [(ngModel)] = "userappNew.alias">
+                    <label class="form-label" for="alias">Alias</label>
+                </div>
+            </div>
+            <!--
+            <div class="col-3">
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="icon" name="icon" placeholder="2" [(ngModel)] = "userappNew.icon">
+                    <label class="form-label" for="icon">Immagine</label>
+                </div>
+            </div>-->
+
+            <div class="col-9"></div>
+            
+        </div>
+        
+        <!-- SESTA RIGA -->
+        <div class="col-12 mt-3">
+            <button class="btn btn-primary" type="submit" [disabled]="uteForm.invalid">Salva</button>
+        </div>
+        
+    </form>
+</div>
+
+<!-- Questo è il modale che verrà aperto dopo l'operazione di salvataggio nuovo paziente o dopo la modifica di un paziente-->
+
+<div class="modal" id="modalUser">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="d-grid gap-2">
+                    <h5>{{contentModalUserapp}}</h5>
+                    @if (successOperation) {
+                        <button type="button" class="btn btn-success btn-lg" (click)="navigateToBack()">OK</button>
+                    }@else {
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="closeModal()">Close</button>
+                    }
+                
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

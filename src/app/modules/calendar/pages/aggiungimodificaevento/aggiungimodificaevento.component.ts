@@ -76,8 +76,7 @@ export class AggiungimodificaeventoComponent implements OnInit, AfterViewInit {
     home_district: "",
     home_phone: "",
     personal_phone: "",
-    mail_address : "",
-    username : ""
+    mail_address : ""
   }
 
   constructor(private route: Router, 

@@ -1,6 +1,6 @@
-import { AfterViewChecked, AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ActivatedRoute, Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { IPatient } from '../../models/Patient';
 import { CommonModule, Location } from '@angular/common';
 import { SessionService } from '../../core/services/session.service';
@@ -39,14 +39,11 @@ export class AggiungimodificapazienteComponent implements OnInit, AfterViewInit 
     home_district: "",
     home_phone: "",
     personal_phone: "",
-    mail_address : "",
-    username : ""
+    mail_address : ""
   }
   
   constructor(private route: Router, 
-              private routerActive: ActivatedRoute, 
               private location: Location,
-              private ss: SessionService, 
               private ps: PatientService) {
 
   }

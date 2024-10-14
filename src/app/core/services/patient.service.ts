@@ -31,8 +31,6 @@ export class PatientService {
 
   savePatient(patientNew: IPatient) : Observable<any> {
 
-    patientNew.username = this.ss.getData("utente");
-
     return this.http.post(`http://${this.server}:${this.port}/api/patient/insert`, patientNew);
 
   }
