@@ -155,7 +155,7 @@
                    data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" 
                    aria-controls="collapseExample" 
                    (change)="checkboxClicked()">
-            <label class="form-label" for="id">La nuova utenza, è anche una risorsa ?</label>
+            <label class="form-label">La nuova utenza, è anche una risorsa ?</label>
         </div>
         <div class="col-9"></div>
         <div class="row collapse" id="collapseExample">
@@ -166,6 +166,9 @@
                     <label class="form-label" for="alias">Alias</label>
                 </div>
             </div>
+            <div class="col-1">
+                <input type="button" class="btn btn-warning mt-2" value="?" title="Il nome che verrà inserito qui, apparirà come risorsa nell'agenda appuntamenti"/>
+            </div>
             <!--
             <div class="col-3">
                 <div class="form-floating mb-3">
@@ -174,7 +177,7 @@
                 </div>
             </div>-->
 
-            <div class="col-9"></div>
+            <div class="col-8"></div>
             
         </div>
         
