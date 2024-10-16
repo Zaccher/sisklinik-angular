@@ -19,5 +19,4 @@ export interface IUserapp {
     checkResource: boolean
     alias : string
     // l'icon viene settata di default dal servizio rest
-    // TODO modificare con una immagine caricata a FE
 }

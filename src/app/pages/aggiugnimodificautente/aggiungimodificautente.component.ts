@@ -1,5 +1,5 @@
 import { CommonModule, Location } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { IUserapp } from '../../models/Userapp';
@@ -15,8 +15,15 @@ import moment from 'moment';
   styleUrl: './aggiungimodificautente.component.css'
 })
 export class AggiungimodificautenteComponent {
+
+  @ViewChild('coverFilesInput') imgType!:ElementRef;
+
+  // PArametri inerenti l'immagine che carichiamo a FE
+  size:number = 0;
+  width:number = 0;
+  height:number = 0;
   
-  // variabile atta a immagazzinare l'eventuale file caricato a FE
+  // variabile atta a memorizzare l'eventuale file caricato a FE
   currentFile!: File;
 
   // Contenuto del modale dello Userapp
@@ -86,6 +93,30 @@ export class AggiungimodificautenteComponent {
   // Metodo richiamato quando carichiamo un file
   selectFile(event: any): void {
     this.currentFile = event.target.files.item(0);
+    
+    // Calcoliamo altezza e larghezza dell'iimagine caricata
+    let img = new Image()
+    img.src = window.URL.createObjectURL(event.target.files[0])
+    img.onload = () => {
+      this.size = Number(((this.currentFile.size) / 1000).toFixed(2));
+      this.width = img.width;
+      this.height = img.height;
+      if(this.height <= 70 && this.width <= 60 && this.size <= 128){
+        alert("Ottimo! L'immagine ha le caratteristiche giuste. Può essere caricata")
+      } 
+      else {
+
+        alert("Siamo spiacenti, questa immagine non ha le caratteristiche previste. "+
+          "Le dimensioni dell'immagine selezionata sono " + img.width +" x " + img.height + " con un peso di " + this.size + " KB. " +
+          "Le dimensioni previste sono 60 x 70 con un peso di 128 KB (al massimo).");
+        
+        // Clear the input
+        event.target.value = null;
+        this.size = 0;
+        this.width = 0;
+        this.height = 0;
+      }     
+    }
   }
 
   salvaUtente() {

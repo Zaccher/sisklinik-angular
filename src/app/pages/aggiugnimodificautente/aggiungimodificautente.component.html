@@ -173,7 +173,7 @@
             
             <div class="col-3">
                 <div>
-                     <input class="form-control" type="file" id="formFile" (change)="selectFile($event)">
+                     <input class="form-control" type="file" #formFile id="formFile" (change)="selectFile($event)">
                      <p style="text-align: center;">Seleziona immagine agenda</p>
                 </div>
             </div>
@@ -182,7 +182,13 @@
                 <input type="button" class="btn btn-warning mt-2" value="?" title="L'immagine selezionata, sarà visibile sull'agenda appuntamenti"/>
             </div>
 
-            <div class="col-4"></div>
+            <div class="col-3">
+                Peso immagine : {{size}} KB (max 128 KB) <br>
+                Larghezza immagine : {{width}} (max 60 px) <br>
+                Altezza immagine : {{height}} (max 70 px) <br>
+            </div>
+            
+            <div class="col-1"></div>
             
         </div>
         
