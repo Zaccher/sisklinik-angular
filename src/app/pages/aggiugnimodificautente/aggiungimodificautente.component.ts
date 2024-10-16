@@ -16,12 +16,14 @@ import moment from 'moment';
 })
 export class AggiungimodificautenteComponent {
 
-  @ViewChild('coverFilesInput') imgType!:ElementRef;
+  // Riprendiamo dal FE l'elemento input type file
+  @ViewChild('formFile') imgType!:ElementRef;
 
   // PArametri inerenti l'immagine che carichiamo a FE
   size:number = 0;
   width:number = 0;
   height:number = 0;
+  type:string = "";
   
   // variabile atta a memorizzare l'eventuale file caricato a FE
   currentFile!: File;
@@ -85,6 +87,13 @@ export class AggiungimodificautenteComponent {
   checkboxClicked() {
     if(this.userappNew.checkResource) {
       this.userappNew.checkResource = false;
+      // resettiamo quell oche abbiamo nella parte della resource
+      this.userappNew.alias = "";
+      this.imgType.nativeElement.value = ""; // azzeriamo il contenuto del type file a FE
+      this.size = 0;
+      this.width = 0;
+      this.height = 0;
+      this.type = "";
     }else {
       this.userappNew.checkResource = true;
     }
@@ -94,7 +103,22 @@ export class AggiungimodificautenteComponent {
   selectFile(event: any): void {
     this.currentFile = event.target.files.item(0);
     
-    // Calcoliamo altezza e larghezza dell'iimagine caricata
+    this.type = this.currentFile.type;
+
+    if(this.type != "image/jpeg") {
+
+      alert("Siamo spiacenti, sono ammessi solo file di tipo image/jpeg")
+
+      // Resettiamo tutti i parametri dell'immagine caricata
+      event.target.value = null;
+      this.size = 0;
+      this.width = 0;
+      this.height = 0;
+      this.type = "";
+      return
+    }
+
+    // Calcoliamo altezza, larghezza e peso dell'iimagine caricata
     let img = new Image()
     img.src = window.URL.createObjectURL(event.target.files[0])
     img.onload = () => {
