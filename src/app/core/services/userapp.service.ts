@@ -16,9 +16,37 @@ export class UserappService {
 
   constructor(private http : HttpClient, private ss: SessionService) { }
 
-  insertUserapp(userappNew: IUserapp) : Observable<any> {
+  insertUserapp(userappNew: IUserapp, file: File) : Observable<any> {
 
-    return this.http.post(`http://${this.server}:${this.port}/api/user/insert`, userappNew);
+    // A causa del file, dobbiamo creare un form data con tutti i campi dello userappNew
+    const formData: FormData = new FormData();
+    formData.append('username', userappNew.username);
+    formData.append('password', userappNew.password);
+    formData.append('name', userappNew.name);
+    formData.append('surname', userappNew.surname);
+    formData.append('fiscalCode', userappNew.fiscalCode);
+    formData.append('birthDate', userappNew.birthDate);
+    formData.append('birthPlace', userappNew.birthPlace);
+    formData.append('address', userappNew.address);
+    formData.append('postcode', userappNew.postcode);
+    formData.append('municipality', userappNew.municipality);
+    formData.append('district', userappNew.district);
+    formData.append('personalPhone', userappNew.personalPhone);
+    formData.append('homePhone', userappNew.homePhone);
+    formData.append('mailAddress', userappNew.mailAddress);
+    if(userappNew.checkResource){
+      formData.append('checkResource', "T");
+    }
+    else{
+      formData.append('checkResource', "F");
+    }
+    formData.append('alias', userappNew.alias);
+
+    if(file) {
+      formData.append('file', file);
+    }
+
+    return this.http.post(`http://${this.server}:${this.port}/api/user/insert`, formData);
 
   }
 }

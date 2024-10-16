@@ -63,7 +63,7 @@
         <!-- SECONDA RIGA -->
         <div class="col-3">
             <div class="form-floating mb-3">
-                <input type="date" class="form-control pe-auto" id="birthDate" name="birthDate" placeholder="5" [(ngModel)] = "userappNew.birthDate">
+                <input type="date" class="form-control pe-auto" id="birthDate" name="birthDate" placeholder="5" [(ngModel)] = "birthDateFE">
                 <label class="form-label" for="birthDate">Data di nascita</label>
             </div>
         </div>
@@ -166,18 +166,23 @@
                     <label class="form-label" for="alias">Alias</label>
                 </div>
             </div>
-            <div class="col-1">
-                <input type="button" class="btn btn-warning mt-2" value="?" title="Il nome che verrà inserito qui, apparirà come risorsa nell'agenda appuntamenti"/>
-            </div>
-            <!--
-            <div class="col-3">
-                <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="icon" name="icon" placeholder="2" [(ngModel)] = "userappNew.icon">
-                    <label class="form-label" for="icon">Immagine</label>
-                </div>
-            </div>-->
 
-            <div class="col-8"></div>
+            <div class="col-1">
+                <input type="button" class="btn btn-warning mt-2" value="?" title="Il nome inserito, apparirà come risorsa nell'agenda appuntamenti"/>
+            </div>
+            
+            <div class="col-3">
+                <div>
+                     <input class="form-control" type="file" id="formFile" (change)="selectFile($event)">
+                     <p style="text-align: center;">Seleziona immagine agenda</p>
+                </div>
+            </div>
+
+            <div class="col-1">
+                <input type="button" class="btn btn-warning mt-2" value="?" title="L'immagine selezionata, sarà visibile sull'agenda appuntamenti"/>
+            </div>
+
+            <div class="col-4"></div>
             
         </div>
         

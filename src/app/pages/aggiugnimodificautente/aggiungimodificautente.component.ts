@@ -5,6 +5,8 @@ import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { IUserapp } from '../../models/Userapp';
 import { UserappService } from '../../core/services/userapp.service';
 
+import moment from 'moment';
+
 @Component({
   selector: 'app-aggiungimodificautente',
   standalone: true,
@@ -13,14 +15,19 @@ import { UserappService } from '../../core/services/userapp.service';
   styleUrl: './aggiungimodificautente.component.css'
 })
 export class AggiungimodificautenteComponent {
+  
+  // variabile atta a immagazzinare l'eventuale file caricato a FE
+  currentFile!: File;
 
   // Contenuto del modale dello Userapp
   contentModalUserapp: string = "";
 
+  birthDateFE!: Date;
+
   // Successo o no dell'operazione sull'utenza
   successOperation: boolean = false;
 
-  // Inizializzo la variabile patientSearch
+  // Inizializzo la variabile userappNew
   userappNew: IUserapp = {
     id: "",
     username: "",
@@ -28,7 +35,7 @@ export class AggiungimodificautenteComponent {
     name: "",
     surname: "",
     fiscalCode: "",
-    birthDate: new Date(),
+    birthDate: "",
     birthPlace: "",
     address: "",
     postcode: "",
@@ -67,6 +74,7 @@ export class AggiungimodificautenteComponent {
     }
   }
 
+  // metodo richiamato nel caso si scelga di check-are la checkBox a FE
   checkboxClicked() {
     if(this.userappNew.checkResource) {
       this.userappNew.checkResource = false;
@@ -75,10 +83,20 @@ export class AggiungimodificautenteComponent {
     }
   }
 
-  salvaUtente() {
-    console.log(this.userappNew);
+  // Metodo richiamato quando carichiamo un file
+  selectFile(event: any): void {
+    this.currentFile = event.target.files.item(0);
+  }
 
-    this.us.insertUserapp(this.userappNew).subscribe(
+  salvaUtente() {
+
+    // Se abbiamo inserito una data nascita, allora converto il valore e lo metto in userappNew
+    if(this.birthDateFE){
+      this.userappNew.birthDate = moment(this.birthDateFE).format('DD/MM/yyyy')
+    }
+
+    // Chiamo il metodo insertUserapp passando anche il file aggiunto
+    this.us.insertUserapp(this.userappNew, this.currentFile).subscribe(
       {
         next: this.handleResponse.bind(this),
         error: this.handleError.bind(this)

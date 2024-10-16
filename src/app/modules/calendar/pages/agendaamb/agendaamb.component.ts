@@ -32,6 +32,7 @@ export class AgendaambComponent implements OnInit, AfterViewInit {
   idEventSelected: string = "";
 
   resources$ : IAgendaResource[] = [];
+  myArrFE: {name: string, id: string, icon: any}[] = [];
   events$: DayPilot.EventData[] = [];
   errore : string = "";
 
@@ -64,7 +65,7 @@ export class AgendaambComponent implements OnInit, AfterViewInit {
             bottom: 10,
             height: 60,
             width: 60,
-            image: "/assets/images/"+data.icon,
+            image: data.icon, // "/assets/images/"+ data.icon prima era cosi
             style: "border-radius: 40px; overflow: hidden; border: 3px solid #fff;"
           },
            {
@@ -73,7 +74,7 @@ export class AgendaambComponent implements OnInit, AfterViewInit {
             top: 95,
             height: 20,
             text: args.column.name,
-            style: "display:flex;justify-content:center;align-items:center;"
+            style: "display:flex;align-items:center;"
           }
         ];
       }
@@ -230,8 +231,37 @@ export class AgendaambComponent implements OnInit, AfterViewInit {
     
     this.resources$ = response;
 
+    for(let i=0; i<this.resources$.length; i++){
+
+      if(this.resources$[i].displayPicture) {
+        
+        // Creiamo la tupla che compone il singol oelemento del nostro array a FE delle risorse
+        const element = {
+          name: this.resources$[i].name,
+          id: this.resources$[i].id,
+          icon: 'data:image/jpg;base64,' + this.resources$[i].displayPicture
+        }
+
+        // Push dell'element all'interno del nostro array a FE delle risorse 
+        this.myArrFE.push(element);
+
+      }else {
+        
+        // Se l'utente non ha inserito un immagine, viene utilizzata quella di default
+        const element = {
+          name: this.resources$[i].name,
+          id: this.resources$[i].id,
+          icon: "/assets/images/" + this.resources$[i].icon
+        }
+
+        // Push dell'element all'interno del nostro array a FE delle risorse 
+        this.myArrFE.push(element);
+      }
+
+    }
+
     const options = {
-      columns: this.resources$
+      columns: this.myArrFE
     };
 
     this.calendar.control.update(options);

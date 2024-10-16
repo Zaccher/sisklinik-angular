@@ -5,7 +5,7 @@ export interface IUserapp {
     name: string
     surname: string
     fiscalCode: string
-    birthDate: Date
+    birthDate: string
     birthPlace: string
     address: string
     postcode: string
