@@ -36,6 +36,9 @@ export class AggiungimodificautenteComponent {
   // Successo o no dell'operazione sull'utenza
   successOperation: boolean = false;
 
+  // Variabile per gestire l'obbligatorietà del campo alias solo se visibile
+  isVisible: boolean = false;
+
   // Inizializzo la variabile userappNew
   userappNew: IUserapp = {
     id: "",
@@ -94,8 +97,10 @@ export class AggiungimodificautenteComponent {
       this.width = 0;
       this.height = 0;
       this.type = "";
+      this.isVisible = false;
     }else {
       this.userappNew.checkResource = true;
+      this.isVisible = true;
     }
   }
 

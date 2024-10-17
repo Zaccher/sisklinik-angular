@@ -162,8 +162,12 @@
             <p class="h6 mt-3"> Dati Risorsa </p>
             <div class="col-3">
                 <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="alias" name="alias" placeholder="2" [(ngModel)] = "userappNew.alias">
-                    <label class="form-label" for="alias">Alias</label>
+                    <input type="text" class="form-control" id="alias" name="alias" placeholder="2" [(ngModel)] = "userappNew.alias"
+                    #alias="ngModel" [required]="isVisible">
+                    <label class="form-label" for="alias">Alias<span style="color: red;">*</span></label>
+                    <span style="color: red;" *ngIf="isVisible && alias.invalid && (alias.dirty || alias.touched)">
+                        Compilare questo campo
+                    </span>
                 </div>
             </div>
 
