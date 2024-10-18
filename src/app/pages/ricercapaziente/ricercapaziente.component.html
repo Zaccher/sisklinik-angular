@@ -101,8 +101,11 @@
         </div>
         <!-- Aggiungi nuovo paziente -->
         <div class="col-6">
-            <button type="button" class="btn btn-default" id="addPaziente" (click)="navigateToInserisciPaziente()">
-                <img class="img-circle" src="../../../assets/images/add_utente_48x48.png" width="48" height="48" title="Crea Nuovo Paziente">
+            <button type="button" class="btn btn-default" id="aggiungiPaziente" (click)="navigateToInserisciPaziente()">
+                <img class="img-circle" src="../../../assets/images/aggiungi_paziente_48x48.png" width="48" height="48" title="Crea Paziente">
+            </button>
+            <button type="button" class="btn btn-default" id="modificaPaziente" (click)="navigateToModificaPaziente()" [hidden]="!selectedRow">
+                <img class="img-circle" src="../../../assets/images/modifica_paziente_48x48.png" width="48" height="48" title="Modifica Paziente">
             </button>
         </div>
         <div class="col-1">

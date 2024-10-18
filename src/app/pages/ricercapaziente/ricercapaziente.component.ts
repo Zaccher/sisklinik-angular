@@ -205,6 +205,10 @@ export class RicercapazienteComponent implements OnInit, AfterViewInit {
     this.route.navigate(['aggiungimodificapaziente']);
   }
 
+  navigateToModificaPaziente() {
+
+  }
+
   navigateToInserisciEvento() {
     this.route.navigate(['aggiungimodificaevento']);
   }
