@@ -220,7 +220,8 @@ export class RicercapazienteComponent implements OnInit, AfterViewInit {
 
   exportToExcel(): void {
     if(this.rowsResult$.length > 0) {
-      this.es.generateExcel(this.rowsResult$, 'Export_Ricerca_Paziente');
+      const header = ["ID", "Nome", "Cognome", "Sesso", "Codice Fiscale", "Data di Nascita", "Comune di Nascita", "Indirizzo"];
+      this.es.generateExcel(header, this.rowsResult$, 'Export_Ricerca_Paziente');
     }
   }
 }

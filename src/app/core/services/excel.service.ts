@@ -7,16 +7,16 @@ import { saveAs } from 'file-saver';
 })
 export class ExcelService {
   constructor() {}
-  generateExcel(data: any[], fileName: string): void {
+  generateExcel(header: string[], data: any[], fileName: string): void {
     const workbook = new ExcelJS.Workbook();
     const worksheet = workbook.addWorksheet('Sheet 1');
     // Add headers
-    const headers = Object.keys(data[0]);
-    worksheet.addRow(headers);
+    const headersFromData = Object.keys(data[0]);
+    worksheet.addRow(header);
     // Add data
     data.forEach((item) => {
       const row : any[] = [];
-      headers.forEach((header) => {
+      headersFromData.forEach((header) => {
         row.push(item[header]);
       });
       worksheet.addRow(row);
