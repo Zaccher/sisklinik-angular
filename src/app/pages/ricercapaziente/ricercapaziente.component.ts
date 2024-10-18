@@ -2,7 +2,7 @@ import { CommonModule, Location } from '@angular/common';
 import { AfterViewInit, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink, RouterLinkActive } from '@angular/router';
-import { Angular2SmartTableModule, LocalDataSource, RowSelectionEvent, Settings} from 'angular2-smart-table';
+import { Angular2SmartTableModule, DataSet, LocalDataSource, RowSelectionEvent, Settings} from 'angular2-smart-table';
 import { PatientService } from '../../core/services/patient.service';
 import { IPatient } from '../../models/Patient';
 import { SessionService } from '../../core/services/session.service';
@@ -136,6 +136,8 @@ export class RicercapazienteComponent implements OnInit, AfterViewInit {
 
   cercaPazienti(): void {
 
+    this.selectedRow = false;
+
     this.ps.getPatientsByParams(this.patientSearch).subscribe(result => {
       
       // Carico i dati restituiti dal servizio dentro source
@@ -170,6 +172,13 @@ export class RicercapazienteComponent implements OnInit, AfterViewInit {
     }
   }
 
+  // DA CONTROLALRE NEL CASO IN CUI CI SIA LA PAGINAZIONE
+  rowSelect(event: RowSelectionEvent): void {
+    // elimino tutti quell iselezionati tranne l'ultimo - a causa del bug
+    event.selected = event.selected.slice(-1);
+  }
+
+  // DA CONTROLALRE NEL CASO IN CUI CI SIA LA PAGINAZIONE
   userSelectedRow(event: RowSelectionEvent): void {
 
     if(event.selected.length === 0) {
@@ -180,8 +189,9 @@ export class RicercapazienteComponent implements OnInit, AfterViewInit {
       /* Per via di un bug del component, quando io clicco una riga 
          e poi ne clicco un'altra senza deselezionare quella precedente, 
          mi memorizza 2 righe dentro al campo selected; per cui sono 
-         costretto a cancellare la prima tramite il metodo shift() */ 
-      event.selected.shift();
+         costretto a cancellare la prima tramite il metodo shift() */
+      event.selected.shift(); 
+      //event.selected = event.selected.slice(-1);
       this.selectedRow$ = event.selected;
       this.selectedRow = true;
       // converto in json l'oggetto
