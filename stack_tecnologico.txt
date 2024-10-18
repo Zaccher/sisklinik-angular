@@ -13,3 +13,7 @@ crypto-js 4.2.0 -> per cryptare e decryptare le info nella sessionStorage e loca
 
 MomentJs 2.30.1 -> npm install moment --save -> Parse, validate, manipulate, e display dates e times in JavaScript
 
+exceljs 4.4.0 -> npm install exceljs -> tool per creare export in excel
+
+file-saver 2.0.5 -> npm install file-saver -> salvare file sul pc locale
+

@@ -87,7 +87,14 @@
                 <label class="form-label" for="numberRow">N° righe</label>
             </div>
         </div>
-        <div class="col-10">
+        <!-- Export excel -->
+        <div class="col-4">
+            <button type="button" class="btn btn-default" id="buttonExport" (click)="exportToExcel()">
+                <img class="img-circle" src="../../../assets/images/excel_48x48.png" width="48" height="48" title="Export Excel">
+            </button>
+        </div>
+        <!-- Aggiungi nuovo paziente -->
+        <div class="col-6">
             <button type="button" class="btn btn-default" id="addPaziente" (click)="navigateToInserisciPaziente()">
                 <img class="img-circle" src="../../../assets/images/add_utente_48x48.png" width="48" height="48" title="Crea Nuovo Paziente">
             </button>

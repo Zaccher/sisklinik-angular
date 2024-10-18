@@ -7,6 +7,7 @@ import { PatientService } from '../../core/services/patient.service';
 import { IPatient } from '../../models/Patient';
 import { SessionService } from '../../core/services/session.service';
 import moment from 'moment';
+import { ExcelService } from '../../core/services/excel.service';
 
 @Component({
   selector: 'app-ricercapaziente',
@@ -33,6 +34,9 @@ export class RicercapazienteComponent implements OnInit, AfterViewInit {
 
   // datasource di partenza della table
   source: LocalDataSource;
+
+  // Questo array ci servirà a gestire l'export in xlsx
+  rowsResult$: IPatient[] = [];
 
   //Numero righe table
   countRow: number;
@@ -83,6 +87,7 @@ export class RicercapazienteComponent implements OnInit, AfterViewInit {
   constructor(private route: Router,
               private routeActive: ActivatedRoute, 
               private location: Location,
+              private es: ExcelService,
               private ps: PatientService, 
               private ss: SessionService,
               private cdref: ChangeDetectorRef) {
@@ -132,7 +137,10 @@ export class RicercapazienteComponent implements OnInit, AfterViewInit {
     this.ps.getPatientsByParams(this.patientSearch).subscribe(result => {
       
       // Carico i dati restituiti dal servizio dentro source
-      this.source.load(result)  
+      this.source.load(result);
+
+      // settiamo il return del service nella variabile this.rowsResult
+      this.rowsResult$ = result;
 
       // Ri-conto le righe restituite dal servizio
       this.countRow = this.source.count();
@@ -170,7 +178,7 @@ export class RicercapazienteComponent implements OnInit, AfterViewInit {
       // Tolgo l'id del paziente nella sesisonStorage
       this.ss.removeData("patientSelected");
     }else if(event.selected.length > 1) {
-      /* Per via di un bug del component, quando io clicco una riga e poi 
+      /* Per via di un bug del component, quando io clicco una riga 
          e poi ne clicco un'altra senza deselezionare quella precedente, 
          mi memorizza 2 righe dentro al campo selected; per cui sono 
          costretto a cancellare la prima tramite il metodo shift() */ 
@@ -208,5 +216,11 @@ export class RicercapazienteComponent implements OnInit, AfterViewInit {
 
   navigateToBack() {
     this.location.back();
+  }
+
+  exportToExcel(): void {
+    if(this.rowsResult$.length > 0) {
+      this.es.generateExcel(this.rowsResult$, 'prova');
+    }
   }
 }
