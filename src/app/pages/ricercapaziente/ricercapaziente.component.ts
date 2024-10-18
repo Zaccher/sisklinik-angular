@@ -241,18 +241,26 @@ export class RicercapazienteComponent implements OnInit, AfterViewInit {
       // Create a new PDF document.
       const doc = new jsPDF();
 
+      // Aggiungiamo il logo al pdf
+      var logoSisklinik = "../../../assets/images/Logo_Sisklinik.png";
+      doc.addImage(logoSisklinik, 'PNG', 10, 0, 30, 30);
+
       // Add content to the PDF.
       doc.setFontSize(16);
-      doc.text('Lista Pazienti', 10, 10);
+      doc.text('Lista Pazienti', 15, 40);
 
-      // Create a table using `jspdf-autotable`.
+      /* Create a table using jspdf-autotable */
+
+      // Definisco le colonne della tabella
       const headers = [["ID", "Nome", "Cognome", "Sesso", "Codice Fiscale", "Data di Nascita", "Comune di Nascita", "Indirizzo"]];
 
-      const headersFromData = Object.keys(data[0]);
-
+      // Definisco l'array che conterrà i dati della tabella
       const rows : any[] = [];
 
+      // Scorro il rowsREsult$
       this.rowsResult$.forEach((item) => {
+
+        // Mi creo u narray di stringhe con i valori dei campi di item
         const array = [
           item.id,
           item.name,
@@ -263,13 +271,18 @@ export class RicercapazienteComponent implements OnInit, AfterViewInit {
           item.birth_place,
           item.residence_address
         ];
+
+        // Aggiungo l'array al costrutto rows
         rows.push(array);
+
       });
 
+      // Aggiungo la table al doc passato da parametro, definendo anche una posizione Y sul foglio
       autoTable(doc, {
         head: headers,
-        body: rows
-      });
+        body: rows,
+        startY: 45
+      })
 
       // Save the PDF.
       doc.save('Export_Ricerca_Paziente.pdf');
