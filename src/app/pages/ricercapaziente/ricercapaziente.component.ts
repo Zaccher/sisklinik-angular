@@ -139,9 +139,6 @@ export class RicercapazienteComponent implements OnInit, AfterViewInit {
       // Carico i dati restituiti dal servizio dentro source
       this.source.load(result);
 
-      // settiamo il return del service nella variabile this.rowsResult
-      this.rowsResult$ = result;
-
       // Ri-conto le righe restituite dal servizio
       this.countRow = this.source.count();
     });
@@ -219,9 +216,20 @@ export class RicercapazienteComponent implements OnInit, AfterViewInit {
   }
 
   exportToExcel(): void {
-    if(this.rowsResult$.length > 0) {
-      const header = ["ID", "Nome", "Cognome", "Sesso", "Codice Fiscale", "Data di Nascita", "Comune di Nascita", "Indirizzo"];
-      this.es.generateExcel(header, this.rowsResult$, 'Export_Ricerca_Paziente');
-    }
+
+    this.source.getFilteredAndSorted().then(data => {
+
+      console.log(data);
+
+      this.rowsResult$ = data;
+
+      if(this.rowsResult$.length > 0) {
+        const header = ["ID", "Nome", "Cognome", "Sesso", "Codice Fiscale", "Data di Nascita", "Comune di Nascita", "Indirizzo"];
+        this.es.generateExcel(header, this.rowsResult$, 'Export_Ricerca_Paziente');
+      }
+
+    });
+
+    
   }
 }
