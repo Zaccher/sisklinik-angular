@@ -220,7 +220,7 @@ export class RicercapazienteComponent implements OnInit, AfterViewInit {
 
   exportToExcel(): void {
     if(this.rowsResult$.length > 0) {
-      this.es.generateExcel(this.rowsResult$, 'prova');
+      this.es.generateExcel(this.rowsResult$, 'Export_Ricerca_Paziente');
     }
   }
 }
