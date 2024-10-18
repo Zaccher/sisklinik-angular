@@ -17,3 +17,6 @@ exceljs 4.4.0 -> npm install exceljs -> tool per creare export in excel
 
 file-saver 2.0.5 -> npm install file-saver -> salvare file sul pc locale
 
+jspdf 2.5.2 -> npm install jspdf -> tool per generare pdf
+
+jspdf-autotable 3.8.4 -> npm install jspdf-autotable -> plugin per jspdf per creare tabelle dentro i pdf generati

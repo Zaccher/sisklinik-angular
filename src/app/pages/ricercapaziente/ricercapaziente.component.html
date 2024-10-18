@@ -32,7 +32,7 @@
                 <label class="form-label" for="nomeInput">Nome</label>
             </div>
         </div>
-        <div class="col-3">
+        <div class="col-2">
             <div class="form-floating mb-3">
                 <select class="form-select" id="sessoInput" placeholder="3" [(ngModel)] = "patientSearch.gender">
                     <option value="" selected></option>
@@ -42,15 +42,16 @@
                 <label class="form-label" for="sessoInput">Sesso</label>
             </div>
         </div>
-        <div class="col-3"></div>
-    </div>
-    <div class="row p-3">
-        <div class="col-2">
+        <div class="col-3">
             <div class="form-floating mb-3">
                 <input type="text" class="form-control" id="cfInput" placeholder="4" [(ngModel)] = "patientSearch.fiscal_code">
                 <label class="form-label" for="cfInput">Codice Fiscale</label>
             </div>
         </div>
+        <div class="col-1"></div>
+    </div>
+    <div class="row p-3">
+        
         <div class="col-2">
             <div class="form-floating mb-3">
                 <input type="date" class="form-control" id="dataNascitaInput" placeholder="5" [(ngModel)] = "patientSearch.birth_time">
@@ -87,10 +88,15 @@
                 <label class="form-label" for="numberRow">N° righe</label>
             </div>
         </div>
-        <!-- Export excel -->
+        <!-- Sezione Export -->
         <div class="col-4">
-            <button type="button" class="btn btn-default" id="buttonExport" (click)="exportToExcel()">
+            <!-- Export excel -->
+            <button type="button" class="btn btn-default" id="exportExcel" (click)="exportToExcel()" [hidden]="countRow == 0">
                 <img class="img-circle" src="../../../assets/images/excel_48x48.png" width="48" height="48" title="Export Excel">
+            </button>
+            <!-- Export pdf -->
+            <button type="button" class="btn btn-default" id="exportPdf" (click)="exportToPdf()" [hidden]="countRow == 0">
+                <img class="img-circle" src="../../../assets/images/pdf_48x48.png" width="48" height="48" title="Export Pdf">
             </button>
         </div>
         <!-- Aggiungi nuovo paziente -->

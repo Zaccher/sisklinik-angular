@@ -8,6 +8,8 @@ import { IPatient } from '../../models/Patient';
 import { SessionService } from '../../core/services/session.service';
 import moment from 'moment';
 import { ExcelService } from '../../core/services/excel.service';
+import autoTable, { RowInput } from 'jspdf-autotable';
+import jsPDF from 'jspdf';
 
 @Component({
   selector: 'app-ricercapaziente',
@@ -219,8 +221,6 @@ export class RicercapazienteComponent implements OnInit, AfterViewInit {
 
     this.source.getFilteredAndSorted().then(data => {
 
-      console.log(data);
-
       this.rowsResult$ = data;
 
       if(this.rowsResult$.length > 0) {
@@ -230,6 +230,51 @@ export class RicercapazienteComponent implements OnInit, AfterViewInit {
 
     });
 
+  }
+
+  exportToPdf(): void {
+
+    this.source.getFilteredAndSorted().then(data => {
+
+      this.rowsResult$ = data;
+
+      // Create a new PDF document.
+      const doc = new jsPDF();
+
+      // Add content to the PDF.
+      doc.setFontSize(16);
+      doc.text('Lista Pazienti', 10, 10);
+
+      // Create a table using `jspdf-autotable`.
+      const headers = [["ID", "Nome", "Cognome", "Sesso", "Codice Fiscale", "Data di Nascita", "Comune di Nascita", "Indirizzo"]];
+
+      const headersFromData = Object.keys(data[0]);
+
+      const rows : any[] = [];
+
+      this.rowsResult$.forEach((item) => {
+        const array = [
+          item.id,
+          item.name,
+          item.surname,
+          item.gender,
+          item.fiscal_code,
+          item.birth_time,
+          item.birth_place,
+          item.residence_address
+        ];
+        rows.push(array);
+      });
+
+      autoTable(doc, {
+        head: headers,
+        body: rows
+      });
+
+      // Save the PDF.
+      doc.save('Export_Ricerca_Paziente.pdf');
+
+    });
     
   }
 }
