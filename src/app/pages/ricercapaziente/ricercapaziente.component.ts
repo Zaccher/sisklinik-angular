@@ -29,7 +29,7 @@ export class RicercapazienteComponent implements OnInit, AfterViewInit {
   patientSearch: IPatient;
 
   // Variabile atta a memorizzare la riga selezionata della table
-  selectedRow$: IPatient[] = [];
+  selectedRow$!: IPatient;
 
   // Variabile atta a identificare se la riga nella tabella è stata cliccata oppure no
   selectedRow: boolean;
@@ -137,6 +137,7 @@ export class RicercapazienteComponent implements OnInit, AfterViewInit {
   cercaPazienti(): void {
 
     this.selectedRow = false;
+    //this.ss.removeData("patientSelected");
 
     this.ps.getPatientsByParams(this.patientSearch).subscribe(result => {
       
@@ -175,38 +176,24 @@ export class RicercapazienteComponent implements OnInit, AfterViewInit {
   // DA CONTROLALRE NEL CASO IN CUI CI SIA LA PAGINAZIONE
   rowSelect(event: RowSelectionEvent): void {
     // elimino tutti quell iselezionati tranne l'ultimo - a causa del bug
-    event.selected = event.selected.slice(-1);
+    //event.selected = event.selected.slice(-1);
   }
 
   // DA CONTROLALRE NEL CASO IN CUI CI SIA LA PAGINAZIONE
   userSelectedRow(event: RowSelectionEvent): void {
 
-    if(event.selected.length === 0) {
+    if(!event.isSelected) {
       this.selectedRow = false;
-      // Tolgo l'id del paziente nella sesisonStorage
       this.ss.removeData("patientSelected");
-    }else if(event.selected.length > 1) {
-      /* Per via di un bug del component, quando io clicco una riga 
-         e poi ne clicco un'altra senza deselezionare quella precedente, 
-         mi memorizza 2 righe dentro al campo selected; per cui sono 
-         costretto a cancellare la prima tramite il metodo shift() */
-      event.selected.shift(); 
-      //event.selected = event.selected.slice(-1);
-      this.selectedRow$ = event.selected;
-      this.selectedRow = true;
-      // converto in json l'oggetto
-      var jsonPatient = JSON.stringify(this.selectedRow$[0]);
-      // Memorizzo il paziente nella sesisonStorage
-      this.ss.saveData("patientSelected",jsonPatient);
     }else {
-      // se la dimensione di selected è = 1
-      this.selectedRow$ = event.selected;
+      this.selectedRow$ = event.data;
       this.selectedRow = true;
       // converto in json l'oggetto
-      var jsonPatient = JSON.stringify(this.selectedRow$[0]);
+      var jsonPatient = JSON.stringify(this.selectedRow$);
       // Memorizzo il paziente nella sesisonStorage
       this.ss.saveData("patientSelected",jsonPatient);
     }
+
   }
 
   navigateToInserisciPaziente() {
