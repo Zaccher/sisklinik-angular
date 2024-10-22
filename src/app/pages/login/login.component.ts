@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
   notlogged : boolean = false;
   filter$: Observable<string | null> = of("");
 
-  errMsg : string = 'Spiacente, la userid o la password sono errati!';
+  errMsg : string = 'Spiacente, lo username o la password sono errati!';
   errMsg2: string = "Spiacente, devi autenticarti per poter accedere alla pagina selezionata!";
 
   constructor(private route: Router, private activeRoute: ActivatedRoute, private BasicAuth: AuthappService) { }
@@ -39,6 +39,7 @@ export class LoginComponent implements OnInit {
 
   gestAuth = () => {
 
+    /*
     if (this.BasicAuth.autentica(this.userId, this.password)) {
 
       this.route.navigate(['agendaamb']);
@@ -48,6 +49,21 @@ export class LoginComponent implements OnInit {
 
       this.autenticato = false;
 
-    }
+    }*/
+
+    this.BasicAuth.autenticaService(this.userId, this.password).subscribe({
+
+      next: (response) => {
+
+        this.autenticato = true;
+        this.route.navigate(['agendaamb']);
+
+      },
+      error: (error) => {
+
+        this.autenticato = false;
+
+      }
+    });
   }
 }

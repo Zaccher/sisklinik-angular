@@ -137,7 +137,7 @@ export class RicercapazienteComponent implements OnInit, AfterViewInit {
   cercaPazienti(): void {
 
     this.selectedRow = false;
-    //this.ss.removeData("patientSelected");
+    this.ss.removeData("patientSelected");
 
     this.ps.getPatientsByParams(this.patientSearch).subscribe(result => {
       
