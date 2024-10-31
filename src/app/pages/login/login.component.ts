@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { map, Observable, of } from 'rxjs';
 import { AuthappService } from '../../core/services/authapp.service';
+import { AuthJwtService } from '../../core/services/authJwt.service';
 
 @Component({
   selector: 'app-login',
@@ -27,7 +28,7 @@ export class LoginComponent implements OnInit {
   errMsg : string = 'Spiacente, lo username o la password sono errati!';
   errMsg2: string = "Spiacente, devi autenticarti per poter accedere alla pagina selezionata!";
 
-  constructor(private route: Router, private activeRoute: ActivatedRoute, private BasicAuth: AuthappService) { }
+  constructor(private route: Router, private activeRoute: ActivatedRoute, private JwtAuth: AuthJwtService) { }
 
   ngOnInit(): void {
     this.filter$ = this.activeRoute.queryParamMap.pipe(
@@ -51,7 +52,7 @@ export class LoginComponent implements OnInit {
 
     }*/
 
-    this.BasicAuth.autenticaService(this.userId, this.password).subscribe({
+    this.JwtAuth.autenticaService(this.userId, this.password).subscribe({
 
       next: (response) => {
 

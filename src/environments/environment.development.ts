@@ -4,4 +4,7 @@ export const environment = {
     portAgendaService : "5052",
     serverUserappService : "localhost",
     portUserappService : "5051",
+
+    //JwtModule endpoint Auth
+    authServerUri: "http://localhost:9100/auth",
 };
