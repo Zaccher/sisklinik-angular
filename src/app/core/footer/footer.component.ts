@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { AuthappService } from '../services/authapp.service';
+import { AuthJwtService } from '../services/authJwt.service';
 
 @Component({
   selector: 'app-footer',
@@ -15,7 +16,7 @@ export class FooterComponent implements OnInit {
 
   currentDate: Date = new Date();
 
-  constructor(public BasicAuth: AuthappService) {
+  constructor(public authJwt: AuthJwtService) {
 
   }
 

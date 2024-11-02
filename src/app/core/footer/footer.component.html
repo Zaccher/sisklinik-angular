@@ -1,5 +1,5 @@
 <footer class="text-center bg-light fixed">
-    @if (BasicAuth.isLogged()) {
+    @if (authJwt.isLogged()) {
         <!-- Copyright -->
         <div class="text-center pt-2 pb-1" style="background-color: rgba(0, 0, 0, 0.05);">
             <p>Copyrigth &#64; {{currentDate | date: 'y'}}. Tutti i diritti riservati</p>

@@ -1,8 +1,6 @@
 import { Routes } from '@angular/router';
-import { RicercapazienteComponent } from './pages/ricercapaziente/ricercapaziente.component';
-import { AggiungimodificapazienteComponent } from './pages/aggiungimodificapaziente/aggiungimodificapaziente.component';
-import { AggiungimodificaeventoComponent } from './modules/calendar/pages/aggiungimodificaevento/aggiungimodificaevento.component';
-import { AggiungimodificautenteComponent } from './pages/aggiugnimodificautente/aggiungimodificautente.component';
+import { Ruoli } from './models/Ruoli';
+import { AuthGuard } from './core/services/route-guard.service';
 
 export const routes: Routes = [
     {
@@ -18,22 +16,31 @@ export const routes: Routes = [
       {
         path:'agendaamb',
         loadComponent: () => import('./modules/calendar/pages/agendaamb/agendaamb.component')
-          .then(m => m.AgendaambComponent)
+          .then(m => m.AgendaambComponent), canActivate:[AuthGuard], data: { roles: [Ruoli.utente, Ruoli.amministratore] }
       },
       {
         path:'ricercapaziente',
-        component: RicercapazienteComponent
+        loadComponent: () => import('./pages/ricercapaziente/ricercapaziente.component')
+        .then(m=>m.RicercapazienteComponent), canActivate:[AuthGuard], data: { roles: [Ruoli.utente, Ruoli.amministratore] }
       },
       {
         path:'aggiungimodificapaziente',
-        component: AggiungimodificapazienteComponent
+        loadComponent: () => import('./pages/aggiungimodificapaziente/aggiungimodificapaziente.component')
+        .then(m=>m.AggiungimodificapazienteComponent), canActivate:[AuthGuard], data: { roles: [Ruoli.utente, Ruoli.amministratore] }
       },
       {
         path:'aggiungimodificaevento',
-        component: AggiungimodificaeventoComponent
+        loadComponent: () => import('./modules/calendar/pages/aggiungimodificaevento/aggiungimodificaevento.component')
+        .then(m=>m.AggiungimodificaeventoComponent), canActivate:[AuthGuard], data: { roles: [Ruoli.utente, Ruoli.amministratore] }
       },
       {
         path:'aggiungimodificautente',
-        component: AggiungimodificautenteComponent
-      }
+        loadComponent: () => import('./pages/aggiugnimodificautente/aggiungimodificautente.component')
+        .then(m=>m.AggiungimodificautenteComponent), canActivate:[AuthGuard], data: { roles: [Ruoli.amministratore] }
+      },
+      {
+        path:'forbidden',
+        loadComponent: () => import('./pages/forbidden/forbidden.component')
+          .then(m => m.ForbiddenComponent)
+      },
 ];

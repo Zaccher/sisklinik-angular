@@ -1,6 +1,6 @@
 <header class="p-3 mb-3 border-bottom" style="background-color: aliceblue;">
   <div class="container-fluid">
-    @if (BasicAuth.isLogged()) {
+    @if (authJwt.isLogged()) {
       <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
         
         <img src="../../../assets/images/Logo_small.png" width="40" height="32" class="rounded-circle">
@@ -8,13 +8,15 @@
         <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
           
           <li><a class="nav-link px-2 link-body-emphasis" routerLink="/agendaamb">Agenda</a></li>
-          
-          <li class="dropdown" style="cursor: pointer;">
-            <a class="nav-link px-2 link-body-emphasis dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">Gestione utenti</a>
-            <ul class="dropdown-menu text-small">
-              <li><a class="dropdown-item" routerLink="/aggiungimodificautente">Inserisci Utente</a></li>
-            </ul>
-          </li>
+
+          @if (JwtRoles.isAdmin()) {
+            <li class="dropdown" style="cursor: pointer;">
+              <a class="nav-link px-2 link-body-emphasis dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">Gestione utenti</a>
+              <ul class="dropdown-menu text-small">
+                <li><a class="dropdown-item" routerLink="/aggiungimodificautente">Inserisci Utente</a></li>
+              </ul>
+            </li>
+          }
 
           <li class="dropdown" style="cursor: pointer;">
             <a class="nav-link px-2 link-body-emphasis dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">Personale</a>
