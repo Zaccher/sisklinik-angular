@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { map, Observable, of } from 'rxjs';
@@ -16,7 +16,7 @@ import { AuthJwtService } from '../../core/services/authJwt.service';
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, AfterViewInit {
 
   userId : string = "";
   password : string = "";
@@ -36,6 +36,12 @@ export class LoginComponent implements OnInit {
     );
 
     this.filter$.subscribe(param => (param) ? this.notlogged = true : this.notlogged = false);
+  }
+
+  ngAfterViewInit(): void {
+    if(this.JwtAuth.isLogged()) {
+      this.route.navigate(['agendaamb']);
+    }
   }
 
   gestAuth = () => {
