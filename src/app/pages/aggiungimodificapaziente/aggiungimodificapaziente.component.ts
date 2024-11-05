@@ -3,7 +3,6 @@ import { FormsModule } from '@angular/forms';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { IPatient } from '../../models/Patient';
 import { CommonModule, Location } from '@angular/common';
-import { SessionService } from '../../core/services/session.service';
 import { PatientService } from '../../core/services/patient.service';
 
 @Component({

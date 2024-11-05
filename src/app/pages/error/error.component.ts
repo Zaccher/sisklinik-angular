@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-error',
@@ -8,5 +9,15 @@ import { Component } from '@angular/core';
   styleUrl: './error.component.css'
 })
 export class ErrorComponent {
+
+  constructor(private location: Location) {
+
+}
+
+  navigateToBack() {
+
+    // Andiamo indietro
+    this.location.back();
+  }
 
 }
