@@ -43,4 +43,10 @@ export const routes: Routes = [
         loadComponent: () => import('./pages/forbidden/forbidden.component')
           .then(m => m.ForbiddenComponent)
       },
+      {
+        // Questo componenete deve essere sempre l'ultimo - viene chiamato quando si seleziona un path inesistente
+        path:'**',
+        loadComponent: () => import('./pages/error/error.component')
+          .then(m => m.ErrorComponent)
+      }
 ];
