@@ -27,12 +27,16 @@
                       <button class="btn btn-primary btn-lg" (click) = gestAuth()>Log in</button>
                     </div>
                   </div>
-                  <div class="alert alert-danger" role="alert" *ngIf='!autenticato'>
-                    {{errMsg}}
-                  </div>
-                  <div class="alert alert-danger" role="alert" *ngIf='notlogged'>
-                    {{errMsg2}}
-                  </div>
+                  @if (!autenticato) {
+                    <div class="alert alert-danger" role="alert">
+                      {{errMsg}}
+                    </div>
+                  }
+                  @if (notlogged) {
+                    <div class="alert alert-danger" role="alert">
+                      {{errMsg2}}
+                    </div>
+                  }
                 </div>
               </form>
             </div>
