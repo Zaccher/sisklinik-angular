@@ -5,6 +5,7 @@ import {provideAnimations} from "@angular/platform-browser/animations";
 import { routes } from './app.routes';
 import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { NetworkInterceptor } from './interceptors/network.interceptor';
 
 /*
   withViewTransitions -> serve per abilitare le animazioni di entrata e uscita dalle pagine
@@ -20,7 +21,11 @@ export const appConfig: ApplicationConfig = {
       provide:HTTP_INTERCEPTORS,
       useClass:AuthInterceptor,
       multi:true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: NetworkInterceptor,
+      multi: true
     }
-
   ]
 };

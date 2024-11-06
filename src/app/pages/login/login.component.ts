@@ -3,16 +3,12 @@ import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { map, Observable, of } from 'rxjs';
-import { AuthappService } from '../../core/services/authapp.service';
 import { AuthJwtService } from '../../core/services/authJwt.service';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [
-    CommonModule,
-    FormsModule
-  ],
+  imports: [CommonModule, FormsModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
@@ -28,35 +24,29 @@ export class LoginComponent implements OnInit, AfterViewInit {
   errMsg : string = 'Spiacente, lo username o la password sono errati!';
   errMsg2: string = "Spiacente, devi autenticarti per poter accedere alla pagina selezionata!";
 
-  constructor(private route: Router, private activeRoute: ActivatedRoute, private JwtAuth: AuthJwtService) { }
+  constructor(private route: Router, 
+              private activeRoute: ActivatedRoute, 
+              private JwtAuth: AuthJwtService) { }
 
   ngOnInit(): void {
+
     this.filter$ = this.activeRoute.queryParamMap.pipe(
       map((params: ParamMap) => params.get('nologged')),
     );
 
     this.filter$.subscribe(param => (param) ? this.notlogged = true : this.notlogged = false);
+
   }
 
   ngAfterViewInit(): void {
+
     if(this.JwtAuth.isLogged()) {
       this.route.navigate(['agendaamb']);
     }
+
   }
 
   gestAuth = () => {
-
-    /*
-    if (this.BasicAuth.autentica(this.userId, this.password)) {
-
-      this.route.navigate(['agendaamb']);
-      this.autenticato = true;
-
-    } else {
-
-      this.autenticato = false;
-
-    }*/
 
     this.JwtAuth.autenticaService(this.userId, this.password).subscribe({
 
