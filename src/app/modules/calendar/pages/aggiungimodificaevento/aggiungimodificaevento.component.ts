@@ -1,7 +1,7 @@
 import { CommonModule, Location} from '@angular/common';
 import { AfterViewInit, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ActivatedRoute, Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { ActivatedRoute, Router} from '@angular/router';
 import { SessionService } from '../../../../core/services/session.service';
 import { IEvent } from '../../../../models/Event';
 import { DayPilot } from '@daypilot/daypilot-lite-angular';
@@ -12,7 +12,7 @@ import { PatientService } from '../../../../core/services/patient.service';
 @Component({
   selector: 'app-aggiungimodificaevento',
   standalone: true,
-  imports: [RouterLink, RouterLinkActive, FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule],
   templateUrl: './aggiungimodificaevento.component.html',
   styleUrl: './aggiungimodificaevento.component.css'
 })

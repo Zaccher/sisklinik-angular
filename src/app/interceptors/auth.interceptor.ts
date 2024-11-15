@@ -3,7 +3,9 @@ import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/com
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { SessionService } from '../core/services/session.service';
-import { AuthappService } from '../core/services/authapp.service';
+import { AuthJwtService } from '../core/services/authJwt.service';
+import { AppCookieService } from '../core/services/app-cookie.service';
+import { IToken } from '../models/Token';
 
 /* Questa classe permette di effettuare la BasicAuth in tutte le chiamate dell'applicativo
    a patto che l'utente sia loggato!
@@ -12,23 +14,41 @@ import { AuthappService } from '../core/services/authapp.service';
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
 
-  constructor(private BasicAuth: AuthappService, private sessionService: SessionService){}
+  constructor(private JwtAuth: AuthJwtService, private cookieService: AppCookieService){}
 
-  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    
-    /*
-    let utente : string = "admin";
-    let password : string = "admin";
-    */
+  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> { 
 
-    // Il valore viene caricato dal file authapp.service.ts
-    let AuthString = this.sessionService.getData("AuthToken");
+    let AuthHeader : string = "";
 
-    // Se siamo loggati
-    if(this.BasicAuth.loggedUser()) {
-      // Allora inserisci l'authorization header nella i-esima request che partirà
+    var newToken: string = "";
+
+    var url = req.url;
+
+    let AuthString = this.cookieService.get("AuthToken");
+
+    if(req.url == 'http://localhost:9100/refresh') {
+
       req = req.clone({
         setHeaders : {Authorization : AuthString}
+      })
+
+      return next.handle(req);
+    }
+
+    if (AuthString) {
+
+      this.JwtAuth.refreshToken(AuthString);
+      newToken = this.cookieService.get("AuthToken");
+
+    }
+
+    AuthHeader = (newToken != "") ? newToken : "";
+
+    // Se siamo loggati
+    if(this.JwtAuth.loggedUser()) {
+      // Allora inserisci l'authorization header nella i-esima request che partirà
+      req = req.clone({
+        setHeaders : {Authorization : AuthHeader}
       })
     }
 

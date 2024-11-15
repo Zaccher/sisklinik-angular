@@ -7,4 +7,6 @@ export const environment = {
 
     //JwtModule endpoint Auth
     authServerUri: "http://localhost:9100/auth",
+    //JwtModule endpoint Auth
+    refreshToken: "http://localhost:9100/refresh"
 };
