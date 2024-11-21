@@ -8,7 +8,7 @@ import { PatientService } from '../../core/services/patient.service';
 @Component({
   selector: 'app-aggiungimodificapaziente',
   standalone: true,
-  imports: [RouterLink, RouterLinkActive, FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule],
   templateUrl: './aggiungimodificapaziente.component.html',
   styleUrl: './aggiungimodificapaziente.component.css'
 })

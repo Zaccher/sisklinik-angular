@@ -26,7 +26,7 @@ export class AuthInterceptor implements HttpInterceptor {
 
     let AuthString = this.cookieService.get("AuthToken");
 
-    if(req.url == 'http://localhost:9100/refresh') {
+    if(url == 'http://localhost:9100/refresh') {
 
       req = req.clone({
         setHeaders : {Authorization : AuthString}

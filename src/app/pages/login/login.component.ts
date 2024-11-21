@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
 
   errMsg : string = 'Spiacente, lo username o la password sono errati!';
   errMsg2: string = "Spiacente, devi autenticarti per poter accedere alla pagina selezionata!";
-  errMsg3: string = "Sessione Scaduta! Eserguire nuovamente l'accesso!";
+  errMsg3: string = "Sessione Scaduta! Eseguire nuovamente l'accesso!";
 
   constructor(private route: Router, 
               private activeRoute: ActivatedRoute, 

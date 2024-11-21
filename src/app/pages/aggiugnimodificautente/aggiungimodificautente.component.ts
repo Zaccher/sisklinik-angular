@@ -10,7 +10,7 @@ import moment from 'moment';
 @Component({
   selector: 'app-aggiungimodificautente',
   standalone: true,
-  imports: [RouterLink, RouterLinkActive, FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule],
   templateUrl: './aggiungimodificautente.component.html',
   styleUrl: './aggiungimodificautente.component.css'
 })
