@@ -13,8 +13,7 @@ import { Router } from '@angular/router';
 @Injectable()
 export class GestErrorInterceptor implements HttpInterceptor {
 
-  constructor(private router: Router,
-    private auth: AuthJwtService) {}
+  constructor(private router: Router, private auth: AuthJwtService) {}
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 

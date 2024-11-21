@@ -5,6 +5,7 @@ import { AuthJwtService } from '../services/authJwt.service';
 import { CountdownService } from '../services/countdown.service';
 import { map, Subscription, switchMap, timer } from 'rxjs';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -21,7 +22,8 @@ export class HeaderComponent implements OnInit {
   constructor(public authJwt: AuthJwtService,
               public JwtRoles: JwtRolesService,
               private cdref: ChangeDetectorRef,
-              private countdownService: CountdownService) {
+              private countdownService: CountdownService,
+              private router: Router) {
                
   }
 
@@ -36,9 +38,12 @@ export class HeaderComponent implements OnInit {
   }
 
   ngAfterContentChecked() {
-
     this.cdref.detectChanges();
+  }
 
+  logOut() {
+    this.authJwt.clearAll();
+    this.router.navigate(['login'],{queryParams: {logout:true}});
   }
   
 }

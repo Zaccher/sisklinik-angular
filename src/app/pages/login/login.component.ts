@@ -17,15 +17,18 @@ export class LoginComponent implements OnInit, AfterViewInit {
   userId : string = "";
   password : string = "";
   expired : boolean = false;
+  logout : boolean = false;
 
   autenticato : boolean = true;
   notlogged : boolean = false;
   filter$: Observable<string | null> = of("");
   expired$: Observable<string | null> = of("");
+  logout$: Observable<string | null> = of("");
 
   errMsg : string = 'Spiacente, lo username o la password sono errati!';
   errMsg2: string = "Spiacente, devi autenticarti per poter accedere alla pagina selezionata!";
   errMsg3: string = "Sessione Scaduta! Eseguire nuovamente l'accesso!";
+  msgLogout: string = "Logout effettuato con successo";
 
   constructor(private route: Router, 
               private activeRoute: ActivatedRoute, 
@@ -42,6 +45,11 @@ export class LoginComponent implements OnInit, AfterViewInit {
       map((params: ParamMap) => params.get('expired')),
     );
     this.expired$.subscribe(param => (param) ? this.expired = true : this.expired = false);
+
+    this.logout$ = this.activeRoute.queryParamMap.pipe(
+      map((params: ParamMap) => params.get('logout')),
+    );
+    this.logout$.subscribe(param => (param) ? this.logout = true : this.logout = false);
 
   }
 
