@@ -5,12 +5,12 @@ import { AuthJwtService } from '../services/authJwt.service';
 import { CountdownService } from '../services/countdown.service';
 import { map, Subscription, switchMap, timer } from 'rxjs';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [FormsModule,CommonModule],
+  imports: [RouterLink, FormsModule,CommonModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })
