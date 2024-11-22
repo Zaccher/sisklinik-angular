@@ -35,10 +35,14 @@
         </ul>
         
         <!-- Calcolo countdown ogni secondo -->
-        <div id="countdown">
-          <label style="font-family: cursive; font-size: small;">{{countdown}}</label>
-          &nbsp;
-        </div>
+        @if (countdown) {
+          <div id="countdown">
+            <label style="font-family: cursive; font-size: small;">{{countdown}}</label>
+            &nbsp;
+            <input type="button" class="btn btn-warning" value="!" title="Per non far scadere la sessione, si richiede un'azione dell'utente"/>
+            &nbsp;
+          </div>
+        }
         
         <div class="dropdown text-end">
           <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">

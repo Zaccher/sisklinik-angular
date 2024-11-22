@@ -16,7 +16,7 @@ export class CountdownService {
 
     var expNumber : number; // parametro exp convertito in number
 
-    var result : string = "Time Session: ";
+    var result : string = "";
 
     token = this.authJwt.getAuthToken();
 
@@ -32,24 +32,28 @@ export class CountdownService {
 
       var countDownDate = new Date(expNumber*1000).getTime();
 
-        // Get today's date and time
+      // Get today's date and time
       var now = new Date().getTime();
         
       // Find the distance between now and the count down date
       var distance = countDownDate - now;
         
-      // Time calculations for days, hours, minutes and seconds
+      // Time calculations for minutes and seconds
       //var days = Math.floor(distance / (1000 * 60 * 60 * 24));
       //var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
       var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
       var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-        
-      // Output the result in an element with id="demo"
-      result = result +  minutes + "m " + seconds + "s  ";
-        
+      
+      /* Prima di memorizzare il result, aspettiamo 
+         che manchino meno di 5 minuti allo scadere della sessione 
+        */
+      if(minutes < 5 && seconds <= 59) {
+        // Output the result in an element
+        result = "Time Session: " +  minutes + "m " + seconds + "s  ";
+      }
+      
       // If the count down is over, write some text 
       if (distance < 0) {
-        //clearInterval(x);
         result = "Time Session: EXPIRED";
       }
 

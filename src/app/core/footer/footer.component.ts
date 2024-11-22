@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { AuthappService } from '../services/authapp.service';
 import { AuthJwtService } from '../services/authJwt.service';
 
 @Component({
