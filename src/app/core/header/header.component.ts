@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { JwtRolesService } from '../services/jwt-roles.service';
 import { CommonModule } from '@angular/common';
 import { AuthJwtService } from '../services/authJwt.service';
@@ -14,7 +14,7 @@ import { Router, RouterLink} from '@angular/router';
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
 
   countdown : string = "prova";
   subscription !: Subscription;
@@ -44,6 +44,10 @@ export class HeaderComponent implements OnInit {
   logOut() {
     this.authJwt.clearAll();
     this.router.navigate(['login'],{queryParams: {logout:true}});
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe;
   }
   
 }
