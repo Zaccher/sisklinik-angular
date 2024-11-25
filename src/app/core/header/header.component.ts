@@ -16,7 +16,7 @@ import { Router, RouterLink} from '@angular/router';
 })
 export class HeaderComponent implements OnInit, OnDestroy {
 
-  countdown : string = "prova";
+  countdown : string = "";
   subscription !: Subscription;
 
   constructor(public authJwt: AuthJwtService,
